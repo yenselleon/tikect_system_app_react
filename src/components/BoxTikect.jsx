@@ -7,16 +7,18 @@ import { desactivateTicket } from '../reducers/tikect/actions';
 
 
 const BoxTikect = ({data, currentTicketList, atention_time}) => {
-  /* console.log(data)
+  console.log({data, currentTicketList, atention_time})
   
   let timer = useRef();
-
+  clearInterval(timer)
   const {listTicketByQueue} = useSelector(state => state.queue)
+  const mapList = listTicketByQueue.find( queue => queue._id === currentTicketList[0].queue).ticketList
+  console.log(mapList)
 
-  const dispatch = useDispatch(); */
+  const dispatch = useDispatch();
 
 
-  /* const isCurrentTicket = ()=> {
+  const isCurrentTicket = ()=> {
     const mapListTicket = listTicketByQueue.map( queue => {
       
         return queue.ticketList
@@ -28,40 +30,44 @@ const BoxTikect = ({data, currentTicketList, atention_time}) => {
     if(isCurrentTikect){
       setCurrentTikect(true);
     };
-  } */
+  }
 
-  /* const validCurrentTikect = async ()=> {
+  const validCurrentTikect = async ()=> {
     
-    isCurrentTicket();
 
     if(currentTicketList[0]._id === data._id ){
-      timer = setInterval(async ()=> {
-        const diference = dayjs().diff(dayjs(data.createAt), 'second');
-        const remainingSeconds = atention_time * 60 - diference;
+      
+        const diference = dayjs(data.due_date).diff(dayjs(), 'second');
         
-        console.log(remainingSeconds);
+        console.log(diference);
 
-        if(remainingSeconds <= 0){
+        if(diference <= 0){
           clearInterval(timer);
             await dispatch(desactivateTicket(data , data._id));
-            setCurrentTikect(false);
             await dispatch(startListQueue());
 
           console.log("stop")
         }
 
-      },1000);
+      
     }
 
-  } */
+  }
 
   
-  /* useEffect(() => {
+  useEffect(() => {
     
-
+    if(mapList.length > 0){
+      validCurrentTikect()
+    }
     
-  }, []) */
+    return ()=> {
+      clearInterval(timer)
+    }
+    
+  }, [mapList.length])
   
+  timer = setInterval(validCurrentTikect,1000);
 
   return (
     <Box

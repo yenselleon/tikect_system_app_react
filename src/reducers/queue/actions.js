@@ -57,12 +57,27 @@ const startListQueue = ()=> {
 
 }
 
-const timerValidTicket = (ticketData, atention_time)=> {
-    let timer;
+let timer;
+const timerValidTicket = (ticketData)=> {
 
     return async ( dispatch, getState )=> {
 
         try {
+            
+
+           /*  const validDueDate = async()=> {
+                
+                const diference = dayjs(ticketData.due_date).diff(dayjs(), 'second');
+                if(diference <= 0){
+                    clearInterval(timer);
+                      await dispatch(desactivateTicket(ticketData , ticketData._id));
+                      await dispatch(startListQueue())
+                }
+
+                console.log(diference);
+            }
+
+            setInterval(validDueDate, 1000); */
             
             /* const {queue} = getState();
 

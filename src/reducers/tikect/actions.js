@@ -96,7 +96,7 @@ const createTicket = (data)=> {
                     data.queue = listTicketByQueue[indexQueue]._id;
                     const ticketList = listTicketByQueue[indexQueue].ticketList.map( ticketList => ticketList)
 
-                    data.due_date = dayjs(ticketList[[ticketList.length - 1].due_date]).add(listTicketByQueue[indexQueue].atention_time, 'minute');
+                    data.due_date = dayjs(ticketList[ticketList.length - 1].due_date).add(listTicketByQueue[indexQueue].atention_time, 'minute');
 
 
                     const resp = await fetch(`${url}/ticket/add`, {

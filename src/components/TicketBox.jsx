@@ -7,16 +7,16 @@ import { desactivateTicket } from '../reducers/tikect/actions';
 
 
 const TicketBox = ({dataQueue, children}) => {
-    const {atention_time, ticketList} = dataQueue;
+    /* const {atention_time, ticketList} = dataQueue;
     const dispatch = useDispatch();
 
     useEffect(() => {
         
         if(ticketList.length > 0){
-            dispatch(timerValidTicket(ticketList[0], atention_time ));
+            dispatch(timerValidTicket(ticketList[0]));
         }
 
-    }, [ticketList.length])
+    }, [ticketList.length]) */
 
   return (
     <Box
