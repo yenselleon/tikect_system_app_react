@@ -3,19 +3,24 @@ import dayjs from 'dayjs';
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { startListQueue } from '../reducers/queue/actions';
-import { desactivateTicket } from '../reducers/tikect/actions';
+import { desactivateTicket, startSelectedTicket } from '../reducers/tikect/actions';
 
 
 const BoxTikect = ({data, currentTicketList, atention_time}) => {
-  console.log({data, currentTicketList, atention_time})
   
   let timer = useRef();
 
-  const {listTicketByQueue} = useSelector(state => state.queue)
+  const {ticketlist} = useSelector(state => state.ticket)
   
   const dispatch = useDispatch();
   
   clearInterval(timer)
+
+  const handledSelectedTicket = (e)=> {
+    e.stopPropagation();
+
+    dispatch(startSelectedTicket(data));
+  }
 
   const validCurrentTikect = async ()=> {
     
@@ -24,14 +29,12 @@ const BoxTikect = ({data, currentTicketList, atention_time}) => {
       
       const diference = dayjs(data.due_date).diff(dayjs(), 'second');
       
-      console.log(diference);
       
       if(diference <= 0){
         await dispatch(desactivateTicket(data , data._id));
         await dispatch(startListQueue());
         clearInterval(timer);
         
-        console.log("stop")
       }
       
     }
@@ -41,7 +44,7 @@ const BoxTikect = ({data, currentTicketList, atention_time}) => {
   
   useEffect(() => {
     
-    if( currentTicketList[0]._id === data._id){
+    if( ticketlist.length > 0){
       validCurrentTikect()
     }
     
@@ -49,7 +52,7 @@ const BoxTikect = ({data, currentTicketList, atention_time}) => {
       clearInterval(timer)
     }
     
-  }, [currentTicketList[0]._id])
+  }, [ticketlist.length])
   
   timer = setInterval(validCurrentTikect,1000);
 
@@ -64,8 +67,9 @@ const BoxTikect = ({data, currentTicketList, atention_time}) => {
         margin={"3px"}
         cursor="pointer"
         background="whiteAlpha.500"
+        onClick={(e)=> handledSelectedTicket(e)}
     >
-        1
+        •
     </Box>
   )
 }

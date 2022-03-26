@@ -1,19 +1,37 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { deseleccionarTicket } from '../reducers/tikect/actions';
 
 const TikectInfo = () => {
+
+    const dispatch = useDispatch();
+    const {ticketSelected} = useSelector(state => state.ticket)
+
+    const handleDeseleccionar = (e)=> {
+        e.stopPropagation();
+
+        dispatch(deseleccionarTicket());
+
+    }
+
+
   return (
     <Box
         width={"100%"}
-        border="1px solid red"
         padding={"25px"}
+        background="#0E185F"
+        marginTop={"20px"}
+        height="400px"
+        display={"flex"}
+        alignItems="center"
+        justifyContent={"center"}
+        borderRadius="5px"
+        boxShadow={"2xl"}
     >
-        <span>Tiempo restante para ser atendido</span>
         <Box
             width={"100%"}
-            border="1px solid red"
             padding={"25px"}
-            background="red"
             display={"flex"}
             flexDirection="column"
             justifyContent={"center"}
@@ -41,13 +59,16 @@ const TikectInfo = () => {
                 alignItems={"center"}
                 marginBottom="10px"
             >
-                <Text fontSize='sm' color={'white'}>Yensel Leon</Text>
-                <Text fontSize='sm' color={'white'}>ID: 24315898</Text>
+                <Text fontSize='sm' color={'white'}>Nombre: {ticketSelected?.name}</Text>
+                <Text fontSize='sm' color={'white'}>Numero de identificacion: {ticketSelected?.documentation_number}</Text>
             </Box>
 
             <Button
                 colorScheme={"purple"}
-            >Atras</Button>
+                onClick={(e)=> { handleDeseleccionar(e) }}
+            >
+                Atras
+            </Button>
         </Box>
     </Box>
   )

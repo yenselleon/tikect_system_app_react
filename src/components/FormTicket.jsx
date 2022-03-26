@@ -26,14 +26,9 @@ const FormTicket = () => {
     >
         <Formik
             initialValues={initialValues}
-            onSubmit={async ({id_user_ticket, name_user_ticket}, actions) => {
-              /* setTimeout(() => {
-                alert(JSON.stringify(values, null, 2))
-                actions.setSubmitting(false)
-              }, 1000) */
-                actions.setSubmitting(false);
-                await dispatch(createTicket({documentation_number: id_user_ticket, name: name_user_ticket}));
-                await dispatch(startListQueue());
+            onSubmit={async ({id_user_ticket, name_user_ticket}, ) => {
+              await dispatch(createTicket({documentation_number: id_user_ticket, name: name_user_ticket}));
+              await dispatch(startListQueue());
 
             }}
             onReset={initialValues}

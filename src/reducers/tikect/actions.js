@@ -148,6 +148,21 @@ const startGetListTickets = ()=> {
     }
 }
 
+const startSelectedTicket = (data)=> (
+    {
+        type: types.selectedTicket,
+        payload: data
+    }
+)
+
+const deseleccionarTicket = ()=> (
+    {
+        type: types.deseleccionarTicket
+    }
+)
+
+
+
 const getListTickets = (data)=> ({
     type: types.getListTickets,
     payload: data
@@ -157,5 +172,7 @@ export {
     createTicket,
     desactivateTicket,
     startGetListTickets,
-    getListTickets
+    getListTickets,
+    startSelectedTicket,
+    deseleccionarTicket
 }

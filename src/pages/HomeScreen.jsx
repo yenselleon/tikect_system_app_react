@@ -12,6 +12,7 @@ const HomeScreen = () => {
 
   const dispatch = useDispatch();
   const {listTicketByQueue, queues} = useSelector(state => state.queue)
+  const {ticketSelected } = useSelector(state => state.ticket)
 
   useEffect(() => {
 
@@ -56,8 +57,15 @@ const HomeScreen = () => {
 
             ))
         }
-        <FormTicket/>
-        {/* <TikectInfo/> */}
+        {
+          ticketSelected === null ?
+          
+            <FormTicket/>
+          
+          :
+          
+            <TikectInfo/>
+        }
     </Container>
   )
 }

@@ -14,6 +14,16 @@ const ticketReducer = (state = initialState, action)=> {
                 ...state,
                 ticketlist: payload,
             }
+        case types.selectedTicket:
+            return {
+                ...state,
+                ticketSelected: payload,
+            }
+        case types.deseleccionarTicket:
+            return {
+                ...state,
+                ticketSelected: null,
+            }
             
         default:
             return state;
