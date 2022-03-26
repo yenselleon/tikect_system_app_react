@@ -1,4 +1,4 @@
-import { background, Box, Flex } from '@chakra-ui/react';
+import { background, Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react'
 
 const Header = () => {
@@ -12,16 +12,19 @@ const Header = () => {
         /* border="1px solid red" */
         background="#4D5F9B"
         boxShadow={"2xl"}
-        
+        justifyContent={"center"}
     >
         <Box
             sx={{
                 height:"100%",
                 color:"white"
             }}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems="center"
         >
-            <h1>header</h1>
-
+            
+            <Text fontSize='4xl'>Qsmarter</Text>
         </Box>
 
     </Flex>

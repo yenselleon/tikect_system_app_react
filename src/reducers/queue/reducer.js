@@ -3,7 +3,6 @@ import types from './types'
 const initialState = {
     queues: [],
     listTicketByQueue: [],
-    currentTicket: []
 }
 
 const queueReducer = (state = initialState, action)=> {

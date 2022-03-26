@@ -18,11 +18,6 @@ const AppRouter = () => {
             <Header/>
             <Routes>
                 <Route path="/"  element={<HomeScreen />} />
-                {/* <Route path="/bookmarks"  element={<BookmarksScreen />} />
-                <Route path="/eventOfTheDayPerYear/:year" element={<EventsOfTheDayPerYearScreen />} />
-                <Route path="/category/:category" element={<CategoryScreen />} />
-                <Route path="/search/:searchInput" element={<SearchScreen />} />
-                <Route path="*" element={<NotFoundPageScreen />} /> */}
             </Routes>
         </Container>
     </BrowserRouter>

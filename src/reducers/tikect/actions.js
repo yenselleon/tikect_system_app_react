@@ -1,27 +1,5 @@
-/*
-    listTicketByQueue: [
-      {
-        _id: '623da4c82a22c5618a83d41b',
-        queue_number: 1,
-        name: 'CAJA 1',
-        atention_time: 2,
-        state: true,
-        __v: 0,
-        ticketList: []
-      },
-      {
-        _id: '623da4d62a22c5618a83d41d',
-        queue_number: 2,
-        name: 'CAJA 2',
-        atention_time: 3,
-        state: true,
-        __v: 0,
-        ticketList: []
-      }
-    ]
-*/
-
 import dayjs from "dayjs";
+import types from "./types";
 
 const url = 'http://localhost:3031/api';
 
@@ -125,7 +103,7 @@ const createTicket = (data)=> {
 
 const desactivateTicket =  (data, id) => {
 
-    return async (dispatch, getState)=> {
+    return async ()=> {
 
         try {
             
@@ -145,7 +123,39 @@ const desactivateTicket =  (data, id) => {
     }
 }
 
+
+const startGetListTickets = ()=> {
+
+    return async(dispatch)=> {
+
+        try {
+            
+            const resp = await fetch(`${url}/ticket/list`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            });
+            const {body} = await resp.json();
+
+            dispatch(getListTickets(body));
+
+        } catch (error) {
+            console.log("Falla en la conexion");
+            throw new Error(error);
+        }
+
+    }
+}
+
+const getListTickets = (data)=> ({
+    type: types.getListTickets,
+    payload: data
+})
+
 export {
     createTicket,
-    desactivateTicket
+    desactivateTicket,
+    startGetListTickets,
+    getListTickets
 }

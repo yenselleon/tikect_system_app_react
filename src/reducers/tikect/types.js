@@ -1,5 +1,5 @@
 const types = {
-    getListTickets: 'Obenter listado de tickets generados',
+    getListTickets: 'Obetener listado de tickets generados',
 
 }
 

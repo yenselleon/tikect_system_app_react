@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { startListQueue, timerValidTicket } from '../reducers/queue/actions';
+import { startListQueue } from '../reducers/queue/actions';
 import { desactivateTicket } from '../reducers/tikect/actions';
 
 
@@ -10,54 +10,38 @@ const BoxTikect = ({data, currentTicketList, atention_time}) => {
   console.log({data, currentTicketList, atention_time})
   
   let timer = useRef();
-  clearInterval(timer)
+
   const {listTicketByQueue} = useSelector(state => state.queue)
-  const mapList = listTicketByQueue.find( queue => queue._id === currentTicketList[0].queue).ticketList
-  console.log(mapList)
-
+  
   const dispatch = useDispatch();
-
-
-  const isCurrentTicket = ()=> {
-    const mapListTicket = listTicketByQueue.map( queue => {
-      
-        return queue.ticketList
-
-    });
-
-    const isCurrentTikect = mapListTicket.find( ticketList => ticketList[0]._id === data._id)
-
-    if(isCurrentTikect){
-      setCurrentTikect(true);
-    };
-  }
+  
+  clearInterval(timer)
 
   const validCurrentTikect = async ()=> {
     
-
+    
     if(currentTicketList[0]._id === data._id ){
       
-        const diference = dayjs(data.due_date).diff(dayjs(), 'second');
+      const diference = dayjs(data.due_date).diff(dayjs(), 'second');
+      
+      console.log(diference);
+      
+      if(diference <= 0){
+        await dispatch(desactivateTicket(data , data._id));
+        await dispatch(startListQueue());
+        clearInterval(timer);
         
-        console.log(diference);
-
-        if(diference <= 0){
-          clearInterval(timer);
-            await dispatch(desactivateTicket(data , data._id));
-            await dispatch(startListQueue());
-
-          console.log("stop")
-        }
-
+        console.log("stop")
+      }
       
     }
-
+    
   }
-
+  
   
   useEffect(() => {
     
-    if(mapList.length > 0){
+    if( currentTicketList[0]._id === data._id){
       validCurrentTikect()
     }
     
@@ -65,7 +49,7 @@ const BoxTikect = ({data, currentTicketList, atention_time}) => {
       clearInterval(timer)
     }
     
-  }, [mapList.length])
+  }, [currentTicketList[0]._id])
   
   timer = setInterval(validCurrentTikect,1000);
 

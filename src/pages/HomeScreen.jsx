@@ -6,6 +6,7 @@ import Queue from '../components/Queue'
 import TikectInfo from '../components/TikectInfo';
 import { startGetQueue, startListQueue } from '../reducers/queue/actions';
 import logo from '../images/white.png'
+import { startGetListTickets } from '../reducers/tikect/actions';
 
 const HomeScreen = () => {
 
@@ -16,6 +17,7 @@ const HomeScreen = () => {
 
     dispatch(startGetQueue())
     dispatch(startListQueue());
+    dispatch(startGetListTickets());
 
   }, []);
   

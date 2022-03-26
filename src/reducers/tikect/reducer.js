@@ -12,9 +12,7 @@ const ticketReducer = (state = initialState, action)=> {
         case types.getListTickets:
             return {
                 ...state,
-                ticketlist: [
-                    ...payload.data
-                ],
+                ticketlist: payload,
             }
             
         default:

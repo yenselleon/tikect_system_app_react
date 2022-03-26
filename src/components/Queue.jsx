@@ -1,8 +1,6 @@
 import { Box, Flex, Spacer, Text } from '@chakra-ui/react';
 import React from 'react'
-import { useSelector } from 'react-redux';
 import BoxTikect from './BoxTikect';
-import TicketBox from './TicketBox';
 
 const Queue = ({data}) => {
 
@@ -21,13 +19,13 @@ const Queue = ({data}) => {
             alignItems="center"
             background={"whiteAlpha.800"}
         >
-            <Text>{data.name}</Text>
+            <Text fontFamily={"monospace"}>{data.name}</Text>
         </Box>
-        <TicketBox
+        <Box
             width={"75%"}
             display="flex"
             flexWrap={"wrap"}
-            dataQueue={data}
+            background="whiteAlpha.300"
         >
             {
                 (data.ticketList.length > 0) &&
@@ -41,7 +39,7 @@ const Queue = ({data}) => {
 
             }
            
-        </TicketBox>
+        </Box>
     </Flex>
   )
 }
